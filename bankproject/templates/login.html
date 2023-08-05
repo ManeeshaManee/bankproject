@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+LOGIN
+{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+<form class="container w-50 text-center p-5 my-6 bg-info" action="" method="POST">
+  {% csrf_token %}
+    <div>
+        <input style="width:70%;margin-top: 8px;padding:8px;border-radius:0.5px;" type="text" name="username" placeholder="Enter your username"><br>
+        <input style="width:70%;margin-top:16px;padding:8px;border-radius:0.5px;" type="password" name="password" placeholder="Enter your password"><br>
+    </div>
+    <input class="btn btn-primary mb-4" style="width:70%;margin-top:22px;padding:3px;"  type="submit">
+</form>
+</body>
+</html>
+{% endblock %}
