@@ -1,6 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-from .models import Departments
+from django.shortcuts import render, get_object_or_404
+from flask import redirect
+
+from .models import Departments, City, Booking
 from .forms import BookingForm
 
 
@@ -36,3 +38,31 @@ def department(request):
 
 
 
+# def person_create_view(request):
+#     form = BookingForm()
+#     if request.method == 'POST':
+#         form = BookingForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('booking')
+#     return render(request, 'booking.html', {'form': form})
+
+
+
+def person_update_view(request, pk):
+    person = get_object_or_404(Booking, pk=pk)
+    form = BookingForm(instance=booking)
+    if request.method == 'POST':
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            return redirect('person_change', pk=pk)
+    return render(request, 'booking.html', {'form': form})
+
+
+# AJAX
+def load_cities(request):
+    country_id = request.GET.get('country_id')
+    cities = City.objects.filter(country_id=country_id).all()
+    return render(request, 'dropdown.html', {'cities': cities})
+    # return JsonResponse(list(cities.values('id', 'name')), safe=False)
